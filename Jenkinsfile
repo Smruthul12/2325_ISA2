@@ -1,22 +1,21 @@
-pipeline {
-    agent any
-
-    stages {
-    
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    bat "docker build -t smruthul/img ."
-                }
-            }
-        }
-        stage('Build and Run Docker Container') {
-            steps {
-                script {
-                    bat "docker rm -f 2325 || exit 0"
-                    bat "docker run -d --name 2325 smruthul/img"
-                }
-            }
-        }
-    }
+pipeline { 
+    agent any 
+     
+    stages { 
+        stage('Build Docker Image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build("smruthul/2325") 
+                } 
+            } 
+        } 
+         
+        stage('Run Docker Container') { 
+            steps { 
+                script { 
+                    dockerImage.run('-d -p 7070:8080') 
+                } 
+            } 
+        } 
+    } 
 }
