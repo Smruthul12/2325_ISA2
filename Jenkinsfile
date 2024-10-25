@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     bat "docker rm -f 2325 || exit 0"
-                    bat "docker run -d --2325 smruthul/img"
+                    bat "docker run -d --name 2325 smruthul/img"
                 }
             }
         }
